@@ -15,13 +15,26 @@ export const Home = () => {
         getPacientes(),
       ]);
 
-      // Cria um mapa id → nome
       const mapaPacientes: Record<string, string> = {};
       pacientesData.forEach((p: any) => {
         mapaPacientes[p.id] = p.nome;
       });
 
-      setPagamentos(pagamentosData);
+      const pagamentosOrdenados = pagamentosData.sort((a: any, b: any) => {
+        const dateA = new Date(
+          a.diaPagamento?.seconds
+            ? a.diaPagamento.seconds * 1000
+            : a.diaPagamento
+        );
+        const dateB = new Date(
+          b.diaPagamento?.seconds
+            ? b.diaPagamento.seconds * 1000
+            : b.diaPagamento
+        );
+        return dateB.getTime() - dateA.getTime(); // ordem decrescente
+      });
+
+      setPagamentos(pagamentosOrdenados);
       setPacientesMap(mapaPacientes);
     };
 
@@ -29,7 +42,7 @@ export const Home = () => {
   }, []);
 
   return (
-    <div className="min-h-screenfont-[montserrat]">
+    <div className="min-h-screen font-[montserrat]">
       <Navbar />
       <div className="container mx-auto mt-10 p-8 bg-white shadow-lg rounded-xl max-w-6xl">
         <div className="flex items-center justify-between">
@@ -53,32 +66,39 @@ export const Home = () => {
           </>
         ) : (
           <div className="overflow-x-auto mt-6">
-            <table className="min-w-full text-left border">
-              <thead>
-                <tr className="bg-gray-200">
-                  <th className="py-2 px-4 border">Paciente ID</th>
-                  <th className="py-2 px-4 border">Valor</th>
-                  <th className="py-2 px-4 border">Data</th>
-                  <th className="py-2 px-4 border">Tipo</th>
-                  <th className="py-2 px-4 border">Parcelamento</th>
-                  <th className="py-2 px-4 border">Observações</th>
+            <table className="min-w-full table-auto border-collapse text-sm">
+              <thead className="bg-gradient-to-r from-gray-100 to-gray-200 text-gray-700 uppercase text-xs">
+                <tr>
+                  <th className="px-4 py-3 text-left border-b">Paciente</th>
+                  <th className="px-4 py-3 text-left border-b">Valor</th>
+                  <th className="px-4 py-3 text-left border-b">Data</th>
+                  <th className="px-4 py-3 text-left border-b">Tipo</th>
+                  <th className="px-4 py-3 text-left border-b">Parcelamento</th>
+                  <th className="px-4 py-3 text-left border-b">Observações</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="divide-y divide-gray-100 text-gray-800">
                 {pagamentos.map((p: any) => (
-                  <tr key={p.id} className="border-t hover:bg-gray-50">
-                    <td className="py-2 px-4 border">{pacientesMap[p.pacienteId] || "Desconhecido"}</td>
-                    <td className="py-2 px-4 border">R$ {p.valorTotal}</td>
-                    <td className="py-2 px-4 border">
+                  <tr
+                    key={p.id}
+                    className="hover:bg-gray-50 transition duration-200"
+                  >
+                    <td className="px-4 py-2">
+                      {pacientesMap[p.pacienteId] || "Desconhecido"}
+                    </td>
+                    <td className="px-4 py-2">
+                      R$ {parseFloat(p.valorTotal).toFixed(2)}
+                    </td>
+                    <td className="px-4 py-2">
                       {new Date(
-                        p.diaPagamento.seconds * 1000
+                        p.diaPagamento?.seconds
+                          ? p.diaPagamento.seconds * 1000
+                          : p.diaPagamento
                       ).toLocaleDateString()}
                     </td>
-                    <td className="py-2 px-4 border">{p.tipoPagamento}</td>
-                    <td className="py-2 px-4 border">
-                      {p.valorParcelado || "-"}
-                    </td>
-                    <td className="py-2 px-4 border">{p.observacoes}</td>
+                    <td className="px-4 py-2">{p.tipoPagamento}</td>
+                    <td className="px-4 py-2">{p.valorParcelado || "-"}</td>
+                    <td className="px-4 py-2">{p.observacoes || "-"}</td>
                   </tr>
                 ))}
               </tbody>
