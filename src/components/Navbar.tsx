@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export const Navbar = () => {
   return (
-    <nav className="min-h-20 bg-white w-full flex items-center justify-between px-36">
+    <nav className="min-h-20 bg-white w-full flex items-center justify-between px-36 shadow-xl">
       <h1 className="text-2xl font-bold">Controle de Caixa</h1>
 
       <div className="gap-5 flex">
