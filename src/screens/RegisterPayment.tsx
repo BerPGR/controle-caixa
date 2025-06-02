@@ -4,35 +4,36 @@ import { usePacienteService } from "../hooks/usePacienteService";
 import { useNavigate } from "react-router-dom";
 
 export const RegisterPayment = () => {
-  const [pacientes, setPacientes] = useState<any[]>([]);
-  const [pacienteSelecionado, setPacienteSelecionado] = useState("");
+  //const [pacientes, setPacientes] = useState<any[]>([]);
+  //const [pacienteSelecionado, setPacienteSelecionado] = useState("");
+  const [paciente, setPaciente] = useState("");
   const [valorTotal, setValorTotal] = useState("");
   const [diaPagamento, setDiaPagamento] = useState("");
   const [tipoPagamento, setTipoPagamento] = useState("PIX");
   const [valorParcelado, setValorParcelado] = useState("");
   const [observacoes, setObservacoes] = useState("");
 
-  const { getPacientes, createPayment } = usePacienteService();
+  const { createPayment } = usePacienteService();
   const navigate = useNavigate();
 
-  useEffect(() => {
+ /* useEffect(() => {
     const buscarPacientes = async () => {
       const data = await getPacientes();
       setPacientes(data);
     };
     buscarPacientes();
-  }, []);
+  }, []);*/
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!pacienteSelecionado || !valorTotal || !diaPagamento) {
+    if (!paciente || !valorTotal || !diaPagamento) {
       alert("Preencha todos os campos obrigatórios.");
       return;
     }
 
     const pagamento = {
-      pacienteId: pacienteSelecionado,
+      pacienteId: paciente,
       valorTotal,
       diaPagamento: new Date(diaPagamento),
       tipoPagamento,
@@ -62,7 +63,7 @@ export const RegisterPayment = () => {
         <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
             <label className="block font-medium mb-1">Paciente</label>
-            <select
+            {/*<select
               value={pacienteSelecionado}
               onChange={(e) => setPacienteSelecionado(e.target.value)}
               className="w-full border border-gray-300 rounded px-4 py-2"
@@ -73,7 +74,14 @@ export const RegisterPayment = () => {
                   {p.nome} - {p.email}
                 </option>
               ))}
-            </select>
+            </select>*/}
+             <input
+              type="text"
+              value={paciente}
+              onChange={(e) => setPaciente(e.target.value)}
+              placeholder="Fulando da Silva"
+              className="w-full border border-gray-300 rounded px-4 py-2"
+            />
           </div>
 
           <div>
