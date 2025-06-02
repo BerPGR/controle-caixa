@@ -11,10 +11,6 @@ export const RegisterPaciente = () => {
   const [cpf, setCpf] = useState("");
   const [cep, setCep] = useState("");
   const [endereco, setEndereco] = useState("");
-  const [tipoPagamento, setTipoPagamento] = useState("PIX");
-  const [diaPagamento, setDiaPagamento] = useState("");
-  const [valorParcelado, setValorParcelado] = useState("");
-  const [observacoes, setObservacoes] = useState("");
 
   const { createPaciente } = usePacienteService();
   const navigate = useNavigate()
@@ -47,10 +43,6 @@ export const RegisterPaciente = () => {
       cpf,
       cep,
       endereco,
-      tipoPagamento,
-      diaPagamento,
-      valorParcelado,
-      observacoes,
     };
 
     console.log("Paciente:", dadosPaciente);

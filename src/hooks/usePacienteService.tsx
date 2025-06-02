@@ -11,13 +11,6 @@ interface PacienteProps {
   endereco: string;
 }
 
-interface PagamentoProps {
-  tipoPagamento: string;
-  diaPagamento: Date;
-  valorParcelado: string | undefined;
-  observacoes: string;
-}
-
 export function usePacienteService() {
   const getPacientes = async () => {
     const snapshot = await getDocs(collection(db, "pacientes"));
