@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 export const Home = () => {
   const { getPayments, getPacientes } = usePacienteService();
   const [pagamentos, setPagamentos] = useState<any[]>([]);
-  const [pacientesMap, setPacientesMap] = useState<Record<string, string>>({});
+  //const [pacientesMap, setPacientesMap] = useState<Record<string, string>>({});
 
   useEffect(() => {
     const buscarDados = async () => {
@@ -35,7 +35,7 @@ export const Home = () => {
       });
 
       setPagamentos(pagamentosOrdenados);
-      setPacientesMap(mapaPacientes);
+      //setPacientesMap(mapaPacientes);
     };
 
     buscarDados();
@@ -84,7 +84,7 @@ export const Home = () => {
                     className="hover:bg-gray-50 transition duration-200"
                   >
                     <td className="px-4 py-2">
-                      {pacientesMap[p.pacienteId] || "Desconhecido"}
+                      {p.pacienteId || "Desconhecido"}
                     </td>
                     <td className="px-4 py-2">
                       R$ {parseFloat(p.valorTotal).toFixed(2)}
