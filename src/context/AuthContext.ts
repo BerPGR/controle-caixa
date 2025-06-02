@@ -1,5 +1,5 @@
 // src/contexts/authContext.tsx
-import React, { createContext, useContext, useEffect, useState } from 'react'
+/*import React, { createContext, useContext, useEffect, useState } from 'react'
 import { signInWithEmailAndPassword, signOut, onAuthStateChanged, User as FirebaseUser } from 'firebase/auth'
 import { auth } from '../firebase'
 
@@ -61,3 +61,4 @@ export const useAuth = () => {
   if (!context) throw new Error('useAuth deve ser usado dentro de AuthProvider')
   return context
 }
+*/
