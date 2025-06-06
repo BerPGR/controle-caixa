@@ -35,7 +35,7 @@ export const RegisterPayment = () => {
     const pagamento = {
       pacienteId: paciente,
       valorTotal,
-      diaPagamento: new Date(diaPagamento),
+      diaPagamento: new Date(diaPagamento + "T00:00:00"),
       tipoPagamento,
       valorParcelado: tipoPagamento.includes("Crédito") ? valorParcelado : "",
       observacoes,
